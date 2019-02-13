@@ -7,7 +7,9 @@ export default class Menu extends Component {
     this._props = {
       title: title,
       items: items,
+    };
 
+    this._state = {
       isOpen: true,
     };
 
@@ -25,10 +27,19 @@ export default class Menu extends Component {
     this._render();
   }
 
-  _toggle() {
-    this._props.isOpen = !this._props.isOpen;
+  _setState(newState) {
+    this._state = {
+      ...this._state,
+      ...newState,
+    };
 
     this._render();
+  }
+
+  _toggle() {
+    this._setState({
+      isOpen: !this._state.isOpen,
+    });
   }
 
   _render() {
@@ -41,7 +52,7 @@ export default class Menu extends Component {
       
       <ul
         class="menu__items-list"
-        ${ this._props.isOpen ? '' : 'hidden'}
+        ${ this._state.isOpen ? '' : 'hidden'}
       >
         ${ this._props.items.map(item => `
   
