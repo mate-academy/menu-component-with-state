@@ -18,24 +18,6 @@ export default class Menu extends Component {
     this.on('click', 'title', () => this._toggle());
   }
 
-  setProps(newProps) {
-    this._props = {
-      ...this._props,
-      ...newProps,
-    };
-
-    this._updateView(this._props, this._state);
-  }
-
-  _setState(newState) {
-    this._state = {
-      ...this._state,
-      ...newState,
-    };
-
-    this._updateView(this._props, this._state);
-  }
-
   _toggle() {
     this._setState({
       isOpen: !this._state.isOpen,
@@ -43,7 +25,7 @@ export default class Menu extends Component {
   }
 
   _updateView(props, state) {
-    this._render(props, state)
+    this._render(props, state);
   }
 
   _render(props, state) {
