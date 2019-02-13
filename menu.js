@@ -13,7 +13,7 @@ export default class Menu extends Component {
       isOpen: true,
     };
 
-    this._render();
+    this._render(this._props, this._state);
 
     this.on('click', 'title', () => this._toggle());
   }
@@ -24,7 +24,7 @@ export default class Menu extends Component {
       ...newProps,
     };
 
-    this._render();
+    this._updateView(this._props, this._state);
   }
 
   _setState(newState) {
@@ -33,7 +33,7 @@ export default class Menu extends Component {
       ...newState,
     };
 
-    this._render();
+    this._updateView(this._props, this._state);
   }
 
   _toggle() {
@@ -42,19 +42,23 @@ export default class Menu extends Component {
     });
   }
 
-  _render() {
-    console.log('render', this._props.title);
+  _updateView(props, state) {
+    this._render(props, state)
+  }
+
+  _render(props, state) {
+    console.log('render', props.title);
 
     this._element.innerHTML = `
       <h2 class="menu__title" data-element="title">
-        ${ this._props.title }
+        ${ props.title }
       </h2>
       
       <ul
         class="menu__items-list"
-        ${ this._state.isOpen ? '' : 'hidden'}
+        ${ state.isOpen ? '' : 'hidden'}
       >
-        ${ this._props.items.map(item => `
+        ${ props.items.map(item => `
   
           <li class="menu__item">${ item }</li>
   
