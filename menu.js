@@ -4,33 +4,46 @@ export default class Menu extends Component {
   constructor({ element, title = 'Title 1', items = [1, 2, 3] }) {
     super({ element });
 
-    this._title = title;
-    this._items = items;
+    this._props = {
+      title: title,
+      items: items,
 
-    this._isOpen = true;
+      isOpen: true,
+    };
 
     this._render();
 
     this.on('click', 'title', () => this._toggle());
   }
 
+  setProps(newProps) {
+    this._props = {
+      ...this._props,
+      ...newProps,
+    };
+
+    this._render();
+  }
+
   _toggle() {
-    this._isOpen = !this._isOpen;
+    this._props.isOpen = !this._props.isOpen;
 
     this._render();
   }
 
   _render() {
+    console.log('render', this._props.title);
+
     this._element.innerHTML = `
       <h2 class="menu__title" data-element="title">
-        ${ this._title }
+        ${ this._props.title }
       </h2>
       
       <ul
         class="menu__items-list"
-        ${ this._isOpen ? '' : 'hidden'}
+        ${ this._props.isOpen ? '' : 'hidden'}
       >
-        ${ this._items.map(item => `
+        ${ this._props.items.map(item => `
   
           <li class="menu__item">${ item }</li>
   
